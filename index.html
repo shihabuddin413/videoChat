@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Portfolio Manager</title>
+  <style>
+    h1{
+      text-transform: UPPERCASE;
+    }
+    div {
+      padding: 5px 20px ;
+      /*border: 1px solid lightgray;*/
+    }
+    
+    ul{
+      padding: 0!important;
+    }
+    li{
+      display: inline;
+      margin : 2px;
+      list-style: circle;
+    }
+    
+    button{
+      background: white;
+      border : 1px solid gray;
+      border-radius: 10px;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: gray;
+    }
+    
+    p{
+      color: gray;
+    }
+    
+    
+    iframe{
+      border : 1px solid gray;
+      border-radius: 10px;
+      width: 100%;
+      height: 50vh;
+    }
+    
+  </style>
+</head>
+<body>
+    <div>
+      <h1>Portfolio Wizard</h1>
+      <button onclick="more()">?</button>
+      <h2> APPS </h2>
+      <ul>
+        <li>
+          <button onclick="go('form.html')"  > PNL </button>
+        </li>
+        <li>
+          <button onclick="go('imagine.html')" >  Imagine </button>
+        </li>
+        <li>
+          <button onclick="go('')" > postion </button>
+        </li>
+        <li>
+          <button onclick="go('')" > Assets </button>
+        </li>
+      </ul>
+    </div>
+    
+    <div>
+      <iframe src="imagine.html" id ="app"></iframe>
+    </div>
+    
+    <script>
+      function go(loc) {
+        console.log("working")
+        console.log(loc)
+        document.getElementById('app').src = loc;
+      }
+      function more(){
+        alert(
+          "Portfolio Wizard, a Portfolio manager, that can be used maintain swing postion, imagine DCA level by level, generating DCA level by condition, a mathmatical way to imagination "
+        )
+      }
+    </script>
+    
+</body>
+</html>

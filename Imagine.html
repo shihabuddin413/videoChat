@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+     .err{
+       background: red;
+       color: white;
+     }
+     input{
+       margin: 5px;
+       padding: 5px;
+       border-radius: 5px;
+       border: 1px solid gray;
+     }
+     h3 {
+       padding: 5px;
+     }
+     button{
+      background: gray;
+      border : 1px solid gray;
+      border-radius: 10px;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: white;
+      margin : 5px;
+    }
+    #show{
+      color: grey;
+    } 
+    .data {
+      padding : 5px;
+    }
+    .grid_22{
+      display: grid;
+      grid-template-columns: 50% 50%; /* Two columns, each 50% */
+      grid-template-rows: auto auto;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid;
+    }
+    td {
+      border: 1px solid;
+      padding: 3px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+   <div>
+     <div></div>
+       <div class="grid_22">
+         <input id= "high_rn" placeholder="High Range" type="number" >
+         <input id = "low_rn" placeholder="Low Range" type="number">
+         <input id = "gap_filter" type="number" placeholder="gap x 1" value="1">
+         <input id="gap" placeholder="gap price" type="number">
+         <input id="fbuy" placeholder="first buy" type="number">
+        </div>
+       <div>
+        <button onclick="genarate()">Genarate</button>
+       </div>
+     </div>
+     <h3>Genarative result</h3>
+     <table id="show">
+     </table>
+   </div>
+   
+   <script>
+     function genarate(){
+       console.log("button pressed");
+       show = document.getElementById("show");
+       high = document.getElementById("high_rn").value;
+       low = document.getElementById("low_rn").value;
+       gapF = document.getElementById("gap_filter").value ;
+       gapPrice = document.getElementById("gap").value;
+       fBuy = document.getElementById("fbuy").value;
+       let head = `<tr>
+       <th>Price</th>
+       <th>Asset</th>
+       <th>Cost</th>
+       </tr>`
+       let data=head;
+       let totalBuy=0;
+       let totalAmount=0;
+       if (high && low && gap_filter && gapPrice){
+           for (i=high; i>=low; i-=gapPrice){
+             amount = fBuy/i;
+               
+             data += 
+             `<tr class="data">
+                <td> ${parseFloat(i).toFixed(2)}</td>
+                <td> ${parseFloat(amount).toFixed(4)}</td>
+                <td> ${fBuy}</td>
+             </tr>`;
+              totalBuy += Number(fBuy);
+              if (gapF==2){
+                 fBuy = Number(gapPrice) + Number(fBuy);
+              }
+              if (gapF==3){
+                fBuy = Number(fBuy) *2;
+              }
+              
+              totalAmount += Number(amount);
+           }
+           summery =`
+             <tr> 
+                <th>${parseFloat(totalBuy/totalAmount).toFixed(2)}</th>
+                <th>${parseFloat(totalAmount).toFixed(2)}</th>
+                <th>${parseFloat(totalBuy).toFixed(2)}</th>
+             </tr>
+           `
+           data+=summery;
+       } else {
+         data = "<p class='err'>Error input</p>";
+       }
+       console.log(data);
+       
+       show.innerHTML = 
+        /* `<li>High Range [ ${high} ]</li> <li>low Range [ ${low} ]</li> <li>gap filter [ ${gapF} ] </li><li>gap price [ ${gapPrice} ] </li> */
+          `${data}`;
+         
+     }
+   </script>
+   
+</body>
+</html>
+
+

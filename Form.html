@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    input{
+       margin: 5px;
+       padding: 5px;
+       border-radius: 5px;
+       border: 1px solid gray;
+     }
+     
+    .grid_22{
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+    }
+    button{
+      background: gray;
+      border : 1px solid gray;
+      border-radius: 10px;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: white;
+      margin:5px;
+    }
+   
+    ol {
+      list-style : none;
+      padding: 0;
+    }
+    
+    #show li{
+      background : white;
+      border: 1px solid lightgray;
+      padding: 2px ;
+      color: Gray;
+      font-style: bold;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+    }
+    #right{
+      text-align: right;
+      width:92%;
+      padding: 2px 5px;
+      background: lightgray;
+      color: navy;
+    }
+    #left{
+      width:92%;
+      text-align:left;
+      padding: 2px 5px;
+      background: yellow;
+      color: black
+    }
+   
+  </style>
+</head>
+<body>
+  <div>
+    <div class="grid_22">
+     
+      <input 
+          id = "entry"
+          type="number" 
+          placeholder="Entry" >
+          
+      <input 
+          id = "close"
+          type="number" 
+          placeholder="Close" >
+          
+      <input 
+          id = "cost"
+          type="number" 
+          placeholder="Cost Amount" >
+      
+      <input id="lev" 
+          type="number"
+          placeholder="leverage x50"
+          >
+          
+       <button id="pnl" onclick="fetch_result()">Get PNL</button>
+       
+    </div>
+    <div>
+      <ol id="show">
+        
+      </ol>
+    </div>
+  </div>
+  
+  <script>
+    
+    
+    
+    function fetch_result(){
+      
+      show = document.getElementById("show")
+    
+      entry_p = document.getElementById('entry').value;
+      close_p = document.getElementById('close').value;
+      cost = document.getElementById('cost').value;
+      lev = document.getElementById('lev').value;
+      
+      asset_amount = parseFloat(cost/entry_p).toFixed(2);
+    
+      cl=parseFloat((asset_amount * close_p)).toFixed(2)
+
+      pnl = parseFloat((close_p-entry_p)*asset_amount).toFixed(2);
+      
+      tfee = parseFloat(cost * (0.06/100) * 2).toFixed(2);
+      
+      profit_per = parseFloat((pnl/cost)*100).toFixed(2)
+      
+      data = `
+         <li>
+           <span id="right">Asset amount </span>
+           <span id="left"> ${(asset_amount)}  </span>
+         </li>
+         <li>
+           <span id="right">Entry value</span>
+           <span id="left">${cost} </span>
+         </li>
+         <li>
+           <span id="right">Closing value</span>
+           <span id="left">${cl}</span>
+         </li>
+         <li>
+           <span id="right">Trade Fee (0.06%)</span>
+           <span id="left">${tfee}</span>
+         </li>
+         <li>
+           <span id="right">Final Pnl</span>
+           <span id="left">${parseFloat(pnl-tfee).toFixed(2)}(${profit_per}%)</span>
+         </li>
+         
+
+      `;
+      show.innerHTML = `${data}`;
+    }
+    
+  </script>
+  
+</body>
+</html>
