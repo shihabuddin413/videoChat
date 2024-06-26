@@ -53,10 +53,10 @@
       <h2> APPS </h2>
       <ul>
         <li>
-          <button onclick="go('./Form.html')"  > PNL </button>
+          <button onclick="go('Form.html')"  > PNL </button>
         </li>
         <li>
-          <button onclick="go('./Imagine.html')" >  Imagine </button>
+          <button onclick="go('Imagine.html')" >  Imagine </button>
         </li>
         <li>
           <button onclick="go('')" > postion </button>
@@ -74,8 +74,9 @@
     <script>
       function go(loc) {
         console.log("working")
+        dv = 'https://shihabuddin413.github.io/videoChat/'
         console.log(loc)
-        document.getElementById('app').src = loc;
+        document.getElementById('app').src = dv+loc;
       }
       function more(){
         alert(
